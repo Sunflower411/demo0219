@@ -81,6 +81,9 @@ rect.parent:hover {
 
 <script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
 <script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://d3js.org/d3-color.v1.min.js"></script>
+<script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 <script>
 
 
@@ -99,6 +102,10 @@ var defaults = {
     width: 960,
     height: 500
 };
+
+var yellow = d3.interpolateYlGn(0), // "rgb(255, 255, 229)"
+    yellowGreen = d3.interpolateYlGn(0.5), // "rgb(120, 197, 120)"
+    green = d3.interpolateYlGn(1); // "rgb(0, 69, 41)"
 
 function main(o, data) {
   var root,
