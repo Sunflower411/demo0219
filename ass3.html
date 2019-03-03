@@ -113,7 +113,7 @@ function main(o, data) {
       height = opts.height - margin.top - margin.bottom - theight,
       transitioning;
 
-  var color = d3.scale.category20c();
+  var color = d3.scaleOrdinal(d3.schemeBlues[9])
 
   var x = d3.scale.linear()
       .domain([0, width])
