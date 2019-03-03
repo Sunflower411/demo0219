@@ -386,12 +386,15 @@
                   //var hold = d.position_holder;
                   //console.log(d.position_holder)
                   if (!isNaN(val)) {
-                  if(d.parent){
+                  if(!d._children){
+                  return("Trander short " + val.toFixed(2) + "%");}
+                  }
+                  /*if(d.parent){
                     return ("Trader short " + val.toFixed(2) + "%");}
                   else{
                     return ("Position Holder" + hold + "/n" +"Trader short" + val.toFixed(2) + "%");}
-                    }
-                  return "ISIN: " + val;
+                    }*/
+                  //return "ISIN: " + val;
                   })
                   .call(text2);
                   
@@ -404,7 +407,7 @@
                   .attr("dy", ".75em")
                   
                   t.append("tspan")
-                  .text(function(d) { return d.key; });
+                  .text(function(d) { var word = d.key.slice(0,6); return word; });
                   t.append("tspan")
                   .attr("dy", "1.0em")
                   .text(function(d) { return formatNumber(d.value); });
@@ -461,6 +464,33 @@
         function text(text) {
             var offset = 6;
             text.selectAll("tspan")
+            .attr("x", function(d) { return x(d.x + d.dx/2)-this.getComputedTextLength()/2 ; })
+            text.attr("x", function(d) { return x(d.x + d.dx/2)-offset ; })
+            .attr("y", function(d) { return y(d.y + d.dy/2)-offset ; })
+            .style("font-weight", "bold");
+            
+            var minFontSize = 4;
+            var maxFontSize = 20;
+            for (i = maxFontSize; i >= minFontSize; i--) {
+                text.style("font-size", function(d){
+                           if ((this.getComputedTextLength() + offset) < x(d.x + d.dx) - x(d.x)) {
+                           //cause an error to avoid actual errors
+                           return false;
+                           }
+                           return i + "px";
+                           })
+            }
+        }
+        
+        function text2(text) {
+            text.attr("x", function(d) { return x(d.x + d.dx/2) - this.getComputedTextLength()/2; })
+            .attr("y", function(d) { return y(d.y + d.dy/2) + 12; })
+            .style("opacity", function(d) { return this.getComputedTextLength() < x(d.x + d.dx) - x(d.x) ? 1 : 0; });
+        }
+        
+        /*function text(text) {
+            var offset = 6;
+            text.selectAll("tspan")
             .attr("x", function(d) { return x(d.x) + offset; })
             text.attr("x", function(d) { return x(d.x) + offset; })
             .attr("y", function(d) { return y(d.y) + offset; })
@@ -483,7 +513,7 @@
             text.attr("x", function(d) { return x(d.x + d.dx) - this.getComputedTextLength() - 6; })
             .attr("y", function(d) { return y(d.y + d.dy) - 6; })
             .style("opacity", function(d) { return this.getComputedTextLength() < x(d.x + d.dx) - x(d.x) ? 1 : 0; });
-        }
+        }*/
         
         function rect(rect) {
             rect.attr("x", function(d) { return x(d.x); })
