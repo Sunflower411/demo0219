@@ -126,10 +126,10 @@
 </head>
 
 <body>
-    <div id="slider"></div>
+    
     <div id="chart"></div>
     <script>
-        var formatDateIntoYear = d3.time.format("%Y");
+        /*var formatDateIntoYear = d3.time.format("%Y");
         var formatDate = d3.time.format("%b %Y");
         
         var startDate = new Date("2019-01-31"),
@@ -195,7 +195,7 @@
                   .attr("x", x(h))
                   .text(formatDate(h));
                   svg.style("background-color", d3.hsl(h/1000000000, 0.8, 0.8));
-            }
+            }*/
     </script>
     
     
@@ -218,6 +218,7 @@
                                     width: 960,
                                     height: 500
                                 };
+    var tool = d3.select("body").append("div").attr("class", "toolTip");
     
     function main(o, data) {
         var root,
@@ -342,7 +343,7 @@
             .datum(d)
             .attr("class", "depth");
             
-            var url="http://ivis.southeastasia.cloudapp.azure.com:5000/currentPosition/"
+            var url="http://ivis.southeastasia.cloudapp.azure.com:5000/histPosition/"
             
             var g = g1.selectAll("g")
             .data(d._children)
