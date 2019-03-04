@@ -232,6 +232,7 @@
         height = opts.height - margin.top - margin.bottom - theight,
         transitioning;
         
+        
         var pur=["#3f007d","#54278f","#6a51a3","#807dba","#9e9ac8","#bcbddc", "#dadaeb","#efedf5","#fcfbfd"];
         var color = d3.scale.ordinal().range(pur);
         
@@ -355,8 +356,8 @@
                                   
 
 
-                          '@'+
-                          d3.nest().key(function(d) { return d.issuer_name; }).key(function(d) { return d.position_holder; })
+                          d.values[0].key
+                          //d3.nest().key(function(d) { return d.issuer_name; }).key(function(d) { return d.position_holder; })
                           //d.children ? null : d.name + "<br>" + ' $ ' + formatMoney(Math.round(d.size * 1000)) + ' ' + roundToTwo((d.value / 16147370.2) * 100) + '%'
                           );
                 }).on("mouseout", function (d) {
@@ -553,7 +554,7 @@
                 var ph = d3.nest().key(function(d){return d.issuer_name;}).key(function(d){return d.isin; }).entries(res);
                 main({title: "ShortsellingOverview"}, {key: "Short Stocks", values: data});
                 
-                console.log(ph)//console.log(data);
+                //console.log(data)//console.log(data);
                  //   }
                 }
                 });
